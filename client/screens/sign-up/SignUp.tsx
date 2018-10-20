@@ -34,6 +34,7 @@ export default class SignUp extends Component {
               <Right />
             </Header>
             <Field
+            disabled={false}
               label="FirstName"
               autoCorrect={false}
               autoCapitalize="none"
@@ -41,6 +42,7 @@ export default class SignUp extends Component {
               onChange={this.onNameChanged}
             />
             <Field
+            disabled={false}
               label="LastName"
               autoCorrect={false}
               autoCapitalize="none"
@@ -48,6 +50,7 @@ export default class SignUp extends Component {
               secureTextEntry
             />
             <Field
+              disabled={false}
               label="Username"
               autoCorrect={false}
               autoCapitalize="none"
@@ -55,6 +58,7 @@ export default class SignUp extends Component {
               secureTextEntry
             />
             <Field
+            disabled={false}
               label="Password"
               autoCorrect={false}
               autoCapitalize="none"
@@ -62,6 +66,7 @@ export default class SignUp extends Component {
               secureTextEntry
             />
             <Field
+            disabled={false}
               label="Phone"
               autoCorrect={false}
               autoCapitalize="none"
