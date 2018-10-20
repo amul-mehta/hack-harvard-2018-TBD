@@ -9,8 +9,39 @@ import { NavigationScreenProp } from "react-navigation";
 import { Field, Images, List } from "../../components";
 import {EventStore} from "./EventStore";
 
+
+
+
 @observer
 export default class AddEvent extends Component {
+
+  styles = StyleSheet.create({
+  circle: {
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 62.5,
+    height: 125,
+    justifyContent: "center",
+    width: 125,
+  },
+  inputContainer: {
+  borderLeftWidth: 1,
+  borderRightWidth: 1,
+  borderTopWidth:1,
+  borderBottomWidth:1,
+  flex: 1, 
+  flexDirection: 'row',
+  height:50,
+},
+input: {
+  backgroundColor: '#ffffff',
+  paddingLeft: 15,
+  paddingRight: 15,
+  flex:0.7,  
+  height: 40,
+  borderColor:'black',
+}
+});
 
   public props: {
     navigation: any;
@@ -93,11 +124,10 @@ export default class AddEvent extends Component {
                })
               : 
               <Button primary full onPress={this.createEvent}><Text>Add Event</Text></Button>} 
-              {this.store.eventcreated ? <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex:0.7,  height: 50,borderColor:'black'}}><Input onChangeText={this.setValue} /></View>
-        <View style={{flex:0.3 , height: 50,borderColor:'black'}}><Button info full onPress={this.addInvite}><Text>Add</Text></Button></View>
+              {this.store.eventcreated ? <View style={this.styles.inputContainer}>
+        <View style={this.styles.input}><Input onChangeText={this.setValue} /></View>
+        <View style={{flex:0.3 , height: 120,borderColor:'black'}}><Button info full onPress={this.addInvite}><Text>Add Invite</Text></Button></View>
         </View> : <View></View>}
-
           </KeyboardAvoidingView>
         </ScrollView >
       </Container >
@@ -136,14 +166,3 @@ export default class AddEvent extends Component {
     this.value = value;
   }
 }
-
-const style = StyleSheet.create({
-  circle: {
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 62.5,
-    height: 125,
-    justifyContent: "center",
-    width: 125,
-  },
-});

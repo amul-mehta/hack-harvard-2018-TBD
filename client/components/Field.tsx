@@ -44,10 +44,8 @@ export default class Field extends Component {
     return (
       <ListItem {...{ last }} style={itemStyle}>
         <Body>
-          
             <Label {...{ style }}>{label}</Label>
             <Input disabled={disabled} onChangeText={this.setValue} {...{ value, style }} {...props} />
-          
         </Body>{right && <Right>{right()}</Right>}
       </ListItem>
     );
