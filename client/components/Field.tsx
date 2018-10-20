@@ -19,6 +19,7 @@ interface FieldProps {
   secureTextEntry?: boolean;
   returnKeyType?: string;
   onSubmitEditing?: any;
+  disabled:boolean
 }
 
 @observer
@@ -34,22 +35,19 @@ export default class Field extends Component {
   }
 
   public render() {
-    const { label, last, inverse, defaultValue, right } = this.props;
-    const style = inverse ? { color: "black" } : {};
-    const itemStyle = inverse ? { borderColor: "white" } : {};
+    const { label, last, inverse, defaultValue, right,disabled } = this.props;
+    const style = inverse ? { color: "black",fontSize:20 } : {};
+    const itemStyle = inverse ? { borderColor: "black" } : {};
     const keysToFilter = ["right", "defaultValue", "inverse", "label", "last", "onChange"];
     const props = _.pickBy(this.props, (val, key) => keysToFilter.indexOf(key) === -1);
     const value: any = this.value;
     return (
       <ListItem {...{ last }} style={itemStyle}>
         <Body>
-          <Item
-            floatingLabel={!defaultValue}
-            stackedLabel={!!defaultValue}
-          >
+          
             <Label {...{ style }}>{label}</Label>
-            <Input onChangeText={this.setValue} {...{ value, style }} {...props} />
-          </Item>
+            <Input disabled={disabled} onChangeText={this.setValue} {...{ value, style }} {...props} />
+          
         </Body>{right && <Right>{right()}</Right>}
       </ListItem>
     );

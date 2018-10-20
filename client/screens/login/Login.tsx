@@ -21,14 +21,10 @@ export default class Login extends React.Component {
       
           <ScrollView contentContainerStyle={style.content}>
             <KeyboardAvoidingView behavior="position">
-              <View style={style.logo}>
-                <View>
-                  <Mark />
-                  <H1 style={StyleSheet.flatten(style.title)}>Get Started!</H1>
-                </View>
-              </View>
+              
               <View style={style.blur}>
                 <Field
+                disabled={false}
                   label="Email"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -38,6 +34,7 @@ export default class Login extends React.Component {
                   inverse
                 />
                 <Field
+                disabled={false}
                   label="Password"
                   secureTextEntry
                   autoCapitalize="none"
@@ -125,7 +122,6 @@ const style = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, .2)",
   },
   content: {
-    flex: 1,
     justifyContent: "flex-end",
   },
   img: {
