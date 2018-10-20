@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import {createStackNavigator, DrawerNavigator} from "react-navigation";
 import {Login} from "./screens/login"
 import {SignUp} from "./screens/sign-up"
+import {Home} from "./screens/home"
 import {observable, computed} from "mobx";
 import {observer, Provider} from "mobx-react/native";
 
@@ -30,6 +31,8 @@ const styles = StyleSheet.create({
 
 
 const PrivateNavigator = createStackNavigator({
-    Login: { screen: Login },
+  Login: { screen: Login },
+    Home: { screen: Home },
     SignUp: { screen: SignUp },
+
 });

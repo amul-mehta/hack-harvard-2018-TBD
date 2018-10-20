@@ -25,6 +25,7 @@ interface FieldProps {
 export default class Field extends Component {
 
   public props: FieldProps;
+  
   @observable
   private value: string;
 
@@ -34,7 +35,7 @@ export default class Field extends Component {
 
   public render() {
     const { label, last, inverse, defaultValue, right } = this.props;
-    const style = inverse ? { color: "white" } : {};
+    const style = inverse ? { color: "black" } : {};
     const itemStyle = inverse ? { borderColor: "white" } : {};
     const keysToFilter = ["right", "defaultValue", "inverse", "label", "last", "onChange"];
     const props = _.pickBy(this.props, (val, key) => keysToFilter.indexOf(key) === -1);

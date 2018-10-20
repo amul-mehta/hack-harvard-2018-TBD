@@ -8,6 +8,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import NavigationHelpers from "./NavigationHelpers";
 import Small from "./Small";
 import WindowDimensions from "./WindowDimensions";
+import List from "./ListView";
 
 export {
   Small,
@@ -19,4 +20,5 @@ export {
   NavigationHelpers,
   WindowDimensions,
   LoadingIndicator,
+  List,
 };

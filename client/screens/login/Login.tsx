@@ -18,6 +18,15 @@ export default class Login extends React.Component {
 
   public render() {
     return (
+      
+          <ScrollView contentContainerStyle={style.content}>
+            <KeyboardAvoidingView behavior="position">
+              <View style={style.logo}>
+                <View>
+                  <Mark />
+                  <H1 style={StyleSheet.flatten(style.title)}>Get Started!</H1>
+                </View>
+              </View>
               <View style={style.blur}>
                 <Field
                   label="Email"
@@ -50,19 +59,48 @@ export default class Login extends React.Component {
                       <Small>Don't have an account? Sign Up</Small>
                     </Button>
                   </View>
+                  <View>
+                    <Button transparent full onPress={this.forgotPassword}>
+                      <Small>Forgot password?</Small>
+                    </Button>
+                  </View>
                 </View>
               </View>
+            </KeyboardAvoidingView>
+          </ScrollView>
+        
     );
   }
 
+  // @autobind
+  // private async signIn(): Promise<void> {
+  //   try {
+  //     await this.store.login().then((x) => {
+
+  //       if(x){
+  //         this.props.navigation.navigate("SignUp");
+  //       }
+
+  //     });
+  //   } catch (e) {
+  //     alert(e.message);
+  //   }
+  // }
+
   @autobind
-  private async signIn(): Promise<void> {
-    try {
-      await this.store.login();
-    } catch (e) {
-      alert(e.message);
+  private signIn() {
+
+      try{
+        this.store.login().then((x) => {
+            this.props.navigation.navigate("Home");
+        });
+      }
+    catch(e){
+      alert(e);
     }
   }
+
+
   @autobind
   private signUp() {
     this.props.navigation.navigate("SignUp");
@@ -85,22 +123,6 @@ export default class Login extends React.Component {
 const style = StyleSheet.create({
   blur: {
     backgroundColor: "rgba(255, 255, 255, .2)",
-  },
-  container: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0, 
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  backgroundContainer: {
-    flex: 1,
-    resizeMode: 'cover',
-    width: undefined,
-    height: undefined,
-    backgroundColor: '#889DAD',
   },
   content: {
     flex: 1,
