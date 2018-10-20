@@ -47,11 +47,15 @@
     }
   },
   "dependencies": {
+    "autobind-decorator": "^2.1.0",
     "expo": "^27.0.1",
     "mobx": "^5.5.1",
     "mobx-react": "^5.3.4",
+    "native-base": "^2.8.1",
+    "prop-types": "^15.5.10",
     "react": "16.3.1",
     "react-native": "~0.55.2",
-    "react-native-navigation": "^1.1.490"
+    "react-native-navigation": "^1.1.490",
+    "react-navigation": "^2.18.0"
   }
 }
