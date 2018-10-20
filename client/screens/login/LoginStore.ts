@@ -15,6 +15,8 @@ export default class LoginStore {
   public props: {
     navigation: any;
   };
+  @observable error:String;
+  @observable user: any;
 
   @observable
   private _loading: boolean = false;
@@ -31,7 +33,7 @@ export default class LoginStore {
   @computed get password(): string { return this._password; }
   set password(password: string) { this._password = password; }
 
-  public login(): Promise<Boolean> {
+  public async login(): Promise<Boolean> {
     this.loading = true;
     try {
       if (this.email === "") {
@@ -42,13 +44,23 @@ export default class LoginStore {
         
       }
 
-      if(this.email === "hello" && this.password === "hello"){
-        this.loading = false;
+      if(this.email && this.password){
+        const _loginInfo: loginInfo = { username: this.email,password:this.password};
+
+        const url = `http://hackparty.azurewebsites.net/api/user/login`;
+
+        let response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Accept':'application/json',
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(_loginInfo)
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
         return Promise.resolve(true);
       }
-      this.loading = false;
-      
-      // await Firebase.auth.signInWithEmailAndPassword(email, password);
       return Promise.resolve(false);
       
     } catch (e) {
@@ -56,4 +68,9 @@ export default class LoginStore {
       throw e;
     }
   }
+}
+
+export interface loginInfo{
+  username: String,
+  password: String
 }

@@ -83,11 +83,11 @@ export default class SignUp extends Component {
   }
   @autobind
   private onNameChanged(name: string): void {
-    this.store.userinfo.firtname = name;
+    this.store.userinfo.first_name = name;
   }
   @autobind
   private onLastChanged(lastname: string): void {
-    this.store.userinfo.lastname = lastname;
+    this.store.userinfo.last_name = lastname;
   }
   @autobind
   private onUsernameChanged(username: string): void {
