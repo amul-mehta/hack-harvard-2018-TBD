@@ -1,10 +1,15 @@
 
 import { computed, observable } from "mobx";
 
+export interface locationInfo {
+  name: string,
+  lat: string,
+  lng: string
+}
 export interface eventinfo{
 
   name:string,
-  location:string,
+  location:locationInfo,
   date:Date,
   id?:Int32Array,
   Invite:string[]
@@ -18,7 +23,7 @@ export class EventStore {
   set loading(loading: boolean) { this._loading = loading; }
 
   @observable
-  private _eventInfo: eventinfo = { name:"" , location:"",date:new Date(),Invite:[]};
+  private _eventInfo: eventinfo = { name:"" , location: {name:"",lat:"",lng:""},date:new Date(),Invite:[]};
   @computed get eventinfo(): eventinfo { return this._eventInfo; }
   set eventinfo(eventinfotemp: eventinfo) { this._eventInfo = eventinfotemp; }
 
@@ -45,7 +50,7 @@ export class EventStore {
       if (this.eventinfo.name === "") {
         throw new Error("Please provide name");
       }
-      if (this.eventinfo.location === "") {
+      if (this.eventinfo.location === undefined) {
         throw new Error("Please provide location");
       }
       /*const user = new User() // await Firebase.auth.createUserWithEmailAndPassword(email, password);

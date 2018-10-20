@@ -7,7 +7,10 @@ import { Component } from "react";
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, View , DatePickerIOS} from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { Field, Images, List } from "../../components";
-import {EventStore} from "./EventStore";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
+import {EventStore, locationInfo} from "./EventStore";
+import { AnyARecord } from 'dns';
 
 
 
@@ -95,7 +98,40 @@ input: {
               autoCapitalize="none"
               onChange={this.onLocationChanged}
             />
-            
+            <GooglePlacesAutocomplete
+              placeholder='Enter Location'
+              minLength={2}
+              autoFocus={false}
+              returnKeyType={'default'}
+              fetchDetails={true}
+              onPress={(data = null, details = null) => {
+                this.onLocationChanged(data,details.geometry.location)
+              }}              
+              query={{
+                // available options: https://developers.google.com/places/web-service/autocomplete
+                key: 'AIzaSyCh69ovgVezbPI96xbWE7ZSv_57PTG1CW0',
+                language: 'en', // language of the results
+                // types: '(cities)' // default: 'geocode'
+              }}
+              styles={{
+                textInputContainer: {
+                  backgroundColor: 'rgba(0,0,0,0)',
+                  borderTopWidth: 0,
+                  borderBottomWidth:0
+                },
+                textInput: {
+                  marginLeft: 0,
+                  marginRight: 0,
+                  height: 38,
+                  color: '#5d5d5d',
+                  fontSize: 16
+                },
+                predefinedPlacesDescription: {
+                  color: '#1faadb'
+                },
+              }}
+              currentLocation={false}
+            />
             {this.store.eventcreated ? 
 
               <Field
@@ -139,8 +175,13 @@ input: {
   }
   
   @autobind
-  private onLocationChanged(username: string): void {
-    this.store.eventinfo.location = username;
+  private onLocationChanged(data: any,location: any): void {
+    const locationInfo: locationInfo = {
+      name: data.name,
+      lat: location.lat,
+      lng: location.lng
+    }
+    this.store.eventinfo.location = locationInfo;
   }
   @autobind
   private back() {
