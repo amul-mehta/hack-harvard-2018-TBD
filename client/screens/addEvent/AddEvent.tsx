@@ -7,7 +7,7 @@ import { Component } from "react";
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, View , DatePickerIOS} from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { Field, Images, List } from "../../components";
-import EventStore from "./EventStore";
+import {EventStore} from "./EventStore";
 
 @observer
 export default class AddEvent extends Component {

@@ -4,11 +4,14 @@ import { Button, Container, H1, Spinner, Text , Label, Header, Body, Title, Foot
 import * as React from "react";
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, View } from "react-native";
 import { List} from "../../components";
+import {eventinfo, EventStore} from "../addEvent/EventStore";
 
 @observer
 export default class Home extends React.Component {
 
-  initialArr = [{key:1,value:"cdcd"},{key:2,value:"cdcdvnkdvn"},{key:3,value:"cdcd"},{key:4,value:"cdcdvnkdvn"}];
+  initialArr : eventinfo[] = [{name:"Pankti's Party",location:"Havana Club",date:new Date(), Invite:[]},
+                              {name:"Amul's Party",location:"Havana Club",date:new Date(), Invite:[]},
+                              {name:"Aly's Party",location:"Havana Club",date:new Date(),Invite:[]}];
 
   public props: {
     navigation: any;
@@ -47,7 +50,7 @@ export default class Home extends React.Component {
           <KeyboardAvoidingView behavior="position">
            { this.initialArr.map(value => {
              return (
-               <List value={value.value}></List>
+               <List value={value.name}></List>
              );
           })}
            </KeyboardAvoidingView>

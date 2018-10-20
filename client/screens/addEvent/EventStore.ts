@@ -5,12 +5,12 @@ export interface eventinfo{
 
   name:string,
   location:string,
-  date:string,
+  date:Date,
   id?:Int32Array,
   Invite:string[]
 }
 
-export default class EventStore {
+export class EventStore {
 
   @observable
   private _loading: boolean = false;
@@ -18,7 +18,7 @@ export default class EventStore {
   set loading(loading: boolean) { this._loading = loading; }
 
   @observable
-  private _eventInfo: eventinfo = { name:"" , location:"",date:"",Invite:[]};
+  private _eventInfo: eventinfo = { name:"" , location:"",date:new Date(),Invite:[]};
   @computed get eventinfo(): eventinfo { return this._eventInfo; }
   set eventinfo(eventinfotemp: eventinfo) { this._eventInfo = eventinfotemp; }
 

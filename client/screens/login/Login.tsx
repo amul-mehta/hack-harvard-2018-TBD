@@ -69,21 +69,6 @@ export default class Login extends React.Component {
     );
   }
 
-  // @autobind
-  // private async signIn(): Promise<void> {
-  //   try {
-  //     await this.store.login().then((x) => {
-
-  //       if(x){
-  //         this.props.navigation.navigate("SignUp");
-  //       }
-
-  //     });
-  //   } catch (e) {
-  //     alert(e.message);
-  //   }
-  // }
-
   @autobind
   private signIn() {
 
