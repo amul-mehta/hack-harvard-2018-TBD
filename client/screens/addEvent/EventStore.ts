@@ -11,8 +11,8 @@ export interface eventinfo{
   name:string,
   location:locationInfo,
   date:Date,
-  id?:Int32Array,
-  Invite:string[]
+  host_id?:Int32Array,
+  attendees:string[]
 }
 
 export class EventStore {
@@ -23,7 +23,7 @@ export class EventStore {
   set loading(loading: boolean) { this._loading = loading; }
 
   @observable
-  private _eventInfo: eventinfo = { name:"" , location: {name:"",lat:"",lng:""},date:new Date(),Invite:[]};
+  private _eventInfo: eventinfo = { name:"" , location: {name:"",lat:"",lng:""},date:new Date(),attendees:[]};
   @computed get eventinfo(): eventinfo { return this._eventInfo; }
   set eventinfo(eventinfotemp: eventinfo) { this._eventInfo = eventinfotemp; }
 
@@ -38,7 +38,7 @@ export class EventStore {
   }
 
   public async AddInvite(invitetemp: string): Promise<void>{
-    this.eventinfo.Invite.push(invitetemp);
+    this.eventinfo.attendees.push(invitetemp);
   }
 
   public async createEvent(): Promise<void> {
@@ -58,6 +58,32 @@ export class EventStore {
       await Firebase.setDefaultUserIfEmpty(user);*/
       this.loading = false;
     } catch (e) {
+      this.loading = false;
+      throw e;
+    }
+  }
+
+  public async getPartyDetails(params:any): Promise<any> {
+    this.loading = true;
+    const partyId = params.party_id;
+    try {
+
+        const url = `http://hackparty.azurewebsites.net/api/party/find/one/${partyId}`;
+
+        let response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Accept':'application/json',
+            'Content-type': 'application/json'
+          }
+        })
+        let responseJson = await response.json();
+        this.attendees = toJS(responseJson.attendees);
+        console.log(this.attendees);
+        this.eventDetails = responseJson;
+        return Promise.resolve(responseJson);
+      }          
+     catch (e) {
       this.loading = false;
       throw e;
     }

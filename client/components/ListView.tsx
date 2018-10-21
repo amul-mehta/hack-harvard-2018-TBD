@@ -9,9 +9,12 @@ import { Component } from "react";
 
 
 interface ListViewProps {
+  id?: string
   value: string;
   defaultValue?: string;
   onChange?: any;
+  attending?:boolean;
+  onClick?(id:any):void;
 }
 
 const styles = StyleSheet.create({
@@ -34,12 +37,15 @@ export default class List extends Component {
     this.setValue(this.props.defaultValue || "");
   }
 
+  
+
   render() {
-    const itemStyle = { borderColor: "black" };
-    const labelcolor = { color: "black" };
+    console.log(this.props.attending);
+    const itemStyle = { borderColor: "black" }
+    const labelcolor = this.props.attending ?{ color: "black" }: {color: "red"};
     const { value } = this.props;
     return (
-      <ListItem style={itemStyle}>
+      <ListItem onPress={this.props.onClick} style={itemStyle}>
         <Body>
             <Label style={labelcolor}>{value}</Label>
         </Body>
