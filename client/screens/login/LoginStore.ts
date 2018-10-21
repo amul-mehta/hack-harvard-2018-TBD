@@ -8,6 +8,8 @@ import { Body, Button, Container, Header, Icon, Left, Right, Spinner, Title } fr
 import { Component } from "react";
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, View } from "react-native";
 import { Field, Images } from "../../components";
+import { Permissions, Notifications } from 'expo';
+
 
 export default class LoginStore {
 
@@ -29,9 +31,38 @@ export default class LoginStore {
   set email(email: string) { this._email = email; }
 
   @observable
+  private _token: string = "";
+  @computed get token(): string { return this._token; }
+  set token(token: string) { this._token = token; }
+
+  @observable
   private _password: string = "";
   @computed get password(): string { return this._password; }
   set password(password: string) { this._password = password; }
+
+
+  public async registerForPushNotification(): Promise<any> {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+  
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== 'granted') {
+      return;
+    }
+    let token = await Notifications.getExpoPushTokenAsync();
+    return (token) ? Promise.resolve(token): Promise.reject()
+
+  }
+
+
 
   public async login(): Promise<Boolean> {
     this.loading = true;
@@ -45,9 +76,15 @@ export default class LoginStore {
       }
 
       if(this.email && this.password){
-        const _loginInfo: loginInfo = { username: this.email,password:this.password};
+        let token = await this.registerForPushNotification();
+        if(token){
+          this.token = token;
+          console.log(this.token);
+        }
+        const _loginInfo: loginInfo = { username: this.email,password:this.password, token: this.token};
 
         const url = `http://hackparty.azurewebsites.net/api/user/login`;
+
 
         let response = await fetch(url, {
           method: 'POST',
@@ -72,5 +109,6 @@ export default class LoginStore {
 
 export interface loginInfo{
   username: String,
-  password: String
+  password: String,
+  token: any
 }
